@@ -69,8 +69,7 @@ int main()
 
     // Display the transformation matrix
     cout << "Transformation Matrix: " << endl;
-    cout << transform << endl;
-    cout << endl;
+cout << transform << endl;
 
     // transform points
     while(cin) {
@@ -174,7 +173,6 @@ Matrix transformMenu()
                 break;
 
             default:
-                cout << "Invalid choice." << endl;
                 break;
         }
 
@@ -188,8 +186,7 @@ Matrix transformMenu()
 Matrix getPoint() 
 {
     double x, y;
-    cout << endl;
-    cout << "Enter x and y: ";
+  cout << "Enter x and y: ";
     cin >> x >> y;
 
     Matrix p(3,1);
