@@ -76,9 +76,7 @@ int main()
     while(cin) {
         Matrix point = getPoint();
 
-        // TODO: Write code to transform the point. This should be a single
-        //       line of code!
-        // YOUR CODE HERE
+        point = transform * point;
 
         // If we have a new point, display it.
         if(cin) {
@@ -92,46 +90,44 @@ int main()
 // build an identity matrix
 Matrix transIdent()
 {
-    // TODO: Build and return a 3x3 identity matrix. The identity matrix
-    //       should look like this:
-    //         1 0 0
-    //         0 1 0
-    //         0 0 1
-    // YOUR CODE HERE
+    Matrix I(3,3);
+    I.at(0,0) = 1; I.at(0,1) = 0; I.at(0,2) = 0;
+    I.at(1,0) = 0; I.at(1,1) = 1; I.at(1,2) = 0;
+    I.at(2,0) = 0; I.at(2,1) = 0; I.at(2,2) = 1;
+    return I;
 }
 
 
 // build a rotation matrix
 Matrix transRotate(double angle)
 {
-    // TODO: Build and return a rotation matrix. The rotation matrix should
-    //       look like this:
-    //         cos(angle) -sin(angle) 0
-    //         sin(angle)  cos(angle) 0
-    //         0           0          1
-    // YOUR CODE HERE
+    double rad = angle * M_PI / 180.0;
+
+    Matrix R(3,3);
+    R.at(0,0) = cos(rad);  R.at(0,1) = -sin(rad); R.at(0,2) = 0;
+    R.at(1,0) = sin(rad);  R.at(1,1) =  cos(rad); R.at(1,2) = 0;
+    R.at(2,0) = 0;         R.at(2,1) = 0;         R.at(2,2) = 1;
+    return R;
 }
 
 // build a scaling matrix
-Matrix transScale(double sx, double sy) 
+Matrix transScale(double sx, double sy)  
 {
-    // TODO: Build and return a scaling matrix. The scaling matrix should
-    //       look like this:
-    //         sx 0  0
-    //         0  sy 0
-    //         0  0  1
-    // YOUR CODE HERE
+    Matrix S(3,3);
+    S.at(0,0) = sx; S.at(0,1) = 0;  S.at(0,2) = 0;
+    S.at(1,0) = 0;  S.at(1,1) = sy; S.at(1,2) = 0;
+    S.at(2,0) = 0;  S.at(2,1) = 0;  S.at(2,2) = 1;
+    return S;
 }
 
 // build a translation matrix
 Matrix translate(double tx, double ty) 
 {
-    // TODO: build and return the translation matrix. The translation
-    //       matrix should look like this:
-    //         1 0 tx
-    //         0 1 ty
-    //         0 0 1
-    // YOUR CODE HERE
+    Matrix T(3,3);
+    T.at(0,0) = 1;  T.at(0,1) = 0;  T.at(0,2) = tx;
+    T.at(1,0) = 0;  T.at(1,1) = 1;  T.at(1,2) = ty;
+    T.at(2,0) = 0;  T.at(2,1) = 0;  T.at(2,2) = 1;
+    return T;
 }
 
 // do the transformation menu
@@ -154,7 +150,33 @@ Matrix transformMenu()
         //     result = newTransform * result;
         // Do a quick google search for "Affine Transformation Matrix" to
         // get more details
-        // YOUR CODE HERE
+        switch(choice) {
+            case 'T':
+                cout << "Enter the x and y translation: ";
+                cin >> x >> y;
+                result = translate(x, y) * result;
+                break;
+
+            case 'R':
+                cout << "Enter the angle of rotation (degrees): ";
+                cin >> angle;
+                result = transRotate(angle) * result;
+                break;
+
+            case 'S':
+                cout << "Enter the x and y scaling factors: ";
+                cin >> x >> y;
+                result = transScale(x, y) * result;
+                break;
+
+            case 'D':
+                // do nothing, loop will end
+                break;
+
+            default:
+                cout << "Invalid choice." << endl;
+                break;
+        }
 
     }while(choice != 'D');
 
@@ -165,11 +187,16 @@ Matrix transformMenu()
 // get the point from the user 
 Matrix getPoint() 
 {
-    // TODO:  Get the x and y coordinate from the user and build a
-    //        3x1 matrix consisting of:
-    //          x
-    //          y
-    //          1
-    // Return your matrix at the end of the function.
-    // YOUR CODE HERE
+    double x, y;
+    cout << endl;
+    cout << "Enter x and y: ";
+    cin >> x >> y;
+
+    Matrix p(3,1);
+    if (cin) {
+        p.at(0,0) = x;
+        p.at(1,0) = y;
+        p.at(2,0) = 1;
+    }
+    return p;
 }
