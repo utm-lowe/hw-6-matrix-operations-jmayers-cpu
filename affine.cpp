@@ -10,7 +10,7 @@
 #include "matrix.h"
 #include <iostream>
 #include <cmath>
-
+#include <cctype>
 using namespace std;
 
 // Transformation Matrix Creation Functions
