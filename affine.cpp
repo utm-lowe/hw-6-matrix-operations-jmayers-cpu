@@ -69,7 +69,7 @@ int main()
 
     // Display the transformation matrix
     cout << "Transformation Matrix: " << endl;
-cout << transform << endl;
+    cout << transform << endl << endl;
 
     // transform points
     while(cin) {
@@ -173,6 +173,7 @@ Matrix transformMenu()
                 break;
 
             default:
+                cout << "Invalid choice. Please try again." << endl;
                 break;
         }
 
